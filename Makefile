@@ -4,7 +4,7 @@ EMAIL ?= support@pixhigh.com
 
 all: pages cname
 
-pages: index.html smartportrait/index.html privacy/index.html terms/index.html
+pages: index.html dracula/index.html privacy/index.html terms/index.html
 
 index.html:
 	@cat > index.html <<EOF
@@ -157,10 +157,10 @@ index.html:
 
     <section>
       <div class="grid">
-        <a class="card" href="/smartportrait/">
+        <a class="card" href="/dracula/">
           <div>
-            <h2>SmartPortrait</h2>
-            <p>AI portrait enhancement and studio-style edits.</p>
+            <h2>Dracula</h2>
+            <p>Dark, cinematic photo filters and presets.</p>
           </div>
           <span>Open support →</span>
         </a>
@@ -188,15 +188,15 @@ index.html:
 </html>
 EOF
 
-smartportrait/index.html:
-	@mkdir -p smartportrait
-	@cat > smartportrait/index.html <<EOF
+dracula/index.html:
+	@mkdir -p dracula
+	@cat > dracula/index.html <<EOF
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SmartPortrait Support</title>
+  <title>Dracula Support</title>
   <style>
     :root {
       --bg: #f4f2ef;
@@ -292,16 +292,16 @@ smartportrait/index.html:
   <div class="wrap">
     <div class="top">
       <a href="/">← Back to Pixhigh Support</a>
-      <h1>SmartPortrait Support</h1>
-      <p>Guidance for portrait enhancement, exports, and subscriptions.</p>
+      <h1>Dracula Support</h1>
+      <p>Support for the Dracula filter pack, presets, and export quality.</p>
     </div>
 
     <section class="panel">
       <h2>Start Here</h2>
       <ul class="list">
-        <li>Check for the latest app version before troubleshooting.</li>
-        <li>Large exports need free storage and a stable connection.</li>
-        <li>Include your Apple ID email if the issue is subscription-related.</li>
+        <li>Refresh presets after installing new packs or updates.</li>
+        <li>Use the highest resolution export option for best results.</li>
+        <li>Include a screenshot of the filter preview if something looks off.</li>
       </ul>
     </section>
 
@@ -315,7 +315,7 @@ smartportrait/index.html:
 
     <section class="panel">
       <h2>Contact</h2>
-      <p>Email <a href="mailto:$(EMAIL)">$(EMAIL)</a> with your device model, iOS version, and a short description of the issue.</p>
+      <p>Email <a href="mailto:$(EMAIL)">$(EMAIL)</a> with your device model and a short description of the issue.</p>
     </section>
 
     <footer>© 2025 Pixhigh. All rights reserved.</footer>

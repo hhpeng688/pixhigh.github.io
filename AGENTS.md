@@ -4,7 +4,7 @@
 This repository is a small static site. Pages live as individual folders, each with its own `index.html`. Current layout:
 
 - `index.html`: root landing page (currently empty).
-- `privacy/index.html`, `smartportrait/index.html`, `terms/index.html`: standalone pages.
+- `dracula/index.html`, `privacy/index.html`, `terms/index.html`: standalone pages.
 
 Keep new pages in their own folder with an `index.html` to match the existing pattern (e.g., `about/index.html`).
 
