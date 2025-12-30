@@ -1,78 +1,145 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dracula Support</title>
+  <title>Dracula: Bloodlines of Desire Support</title>
   <style>
     :root {
-      --bg: #f4f2ef;
-      --bg-accent: #e7f0ec;
-      --ink: #151512;
-      --muted: #5c5a56;
-      --card: #ffffff;
-      --border: #e6e0d7;
-      --accent: #1f5f5c;
-      --accent-strong: #123b39;
-      --shadow: 0 18px 40px rgba(21, 21, 18, 0.08);
+      --bg: #0f0b0b;
+      --bg-accent: #1a1212;
+      --ink: #e6e0d7;
+      --muted: #9c9288;
+      --card: #1c1515;
+      --border: #3d2e2e;
+      --accent: #dc2626;
+      --accent-strong: #991b1b;
+      --shadow: 0 24px 48px rgba(0, 0, 0, 0.5);
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     body {
       margin: 0;
-      font-family: "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       color: var(--ink);
       background:
-        radial-gradient(circle at 10% 10%, rgba(31, 95, 92, 0.12), transparent 45%),
-        radial-gradient(circle at 90% 20%, rgba(18, 59, 57, 0.12), transparent 45%),
+        radial-gradient(circle at 50% 0%, rgba(220, 38, 38, 0.15), transparent 60%),
         linear-gradient(180deg, var(--bg), var(--bg-accent));
       min-height: 100vh;
     }
 
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    a:hover {
+      color: #ff4d4d;
+    }
 
     .wrap {
       max-width: 920px;
       margin: 0 auto;
       padding: 56px 24px 72px;
       display: grid;
-      gap: 24px;
+      gap: 32px;
+      position: relative;
     }
 
-    .top {
+    .header-section {
+      text-align: center;
       display: grid;
-      gap: 10px;
+      gap: 16px;
+      justify-items: center;
+      padding-bottom: 24px;
+      margin-top: 24px;
     }
 
-    .top a {
-      color: var(--accent-strong);
-      font-weight: 600;
+    .app-icon {
+      width: 128px;
+      height: 128px;
+      border-radius: 28px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     }
 
     h1 {
       margin: 0;
-      font-size: clamp(2rem, 3.5vw, 2.6rem);
-      letter-spacing: -0.02em;
+      font-size: clamp(2rem, 4vw, 3rem);
+      letter-spacing: -0.01em;
+      font-weight: 700;
+      background: linear-gradient(to right, #e6e0d7, #9c9288);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
-    p { margin: 0; color: var(--muted); }
+    .subtitle {
+      font-size: 1.2rem;
+      color: var(--muted);
+      max-width: 600px;
+      line-height: 1.5;
+    }
+
+    .hero-image {
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
 
     .panel {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 18px;
-      padding: 24px;
+      padding: 32px;
       box-shadow: var(--shadow);
       display: grid;
-      gap: 14px;
+      gap: 20px;
     }
 
-    .list {
+    h2 {
       margin: 0;
-      padding-left: 20px;
-      color: var(--muted);
+      font-size: 1.5rem;
+      color: var(--ink);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+    }
+
+    .screenshot-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    .screenshot-grid img {
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      transition: transform 0.2s;
+    }
+
+    .screenshot-grid img:hover {
+      transform: scale(1.02);
+    }
+
+    .feature-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .feature-item {
+      display: flex;
+      gap: 12px;
+      align-items: baseline;
+    }
+
+    .feature-icon {
+      color: var(--accent);
     }
 
     .pill-row {
@@ -82,38 +149,92 @@
     }
 
     .pill {
-      background: rgba(31, 95, 92, 0.12);
-      color: var(--accent-strong);
-      padding: 10px 16px;
+      background: rgba(220, 38, 38, 0.1);
+      color: var(--accent);
+      padding: 10px 20px;
       border-radius: 999px;
       font-weight: 600;
+      border: 1px solid rgba(220, 38, 38, 0.2);
+    }
+
+    .pill:hover {
+      background: rgba(220, 38, 38, 0.2);
     }
 
     footer {
+      text-align: center;
       color: var(--muted);
       font-size: 0.9rem;
+      margin-top: 24px;
+    }
+
+    .back-link {
+      position: absolute;
+      top: 0;
+      left: 24px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .back-link:hover {
+      color: var(--accent);
     }
   </style>
 </head>
+
 <body>
   <div class="wrap">
-    <div class="top">
-      <a href="/">← Back to Pixhigh Support</a>
-      <h1>Dracula Support</h1>
-      <p>Support for the Dracula filter pack, presets, and export quality.</p>
-    </div>
+    <a href="/" class="back-link">← Back to Pixhigh</a>
+
+    <header class="header-section">
+      <img src="assets/icon.png" alt="App Icon" class="app-icon">
+      <h1>Dracula: Bloodlines of Desire</h1>
+      <p class="subtitle">A Gothic Romance Visual Novel set in Neo-Victorian Europe, 2125. Choose your path between
+        humanity and bloodlust in this fully voiced interactive story.</p>
+    </header>
+
+    <img src="assets/hero.png" alt="Game Splash Art" class="hero-image">
 
     <section class="panel">
-      <h2>Start Here</h2>
-      <ul class="list">
-        <li>Refresh presets after installing new packs or updates.</li>
-        <li>Use the highest resolution export option for best results.</li>
-        <li>Include a screenshot of the filter preview if something looks off.</li>
-      </ul>
+      <h2>About the Game</h2>
+      <p style="line-height: 1.6; color: var(--muted);">
+        Dracula: Bloodlines of Desire is a choice-driven visual novel combining a dual morality system, fully-voiced
+        romance routes, and a collectible relic system.
+        Will you uncover the secrets of your lineage, or be consumed by the darkness? The choice is yours.
+      </p>
+
+      <div class="feature-list">
+        <div class="feature-item">
+          <span class="feature-icon">♦</span>
+          <span><strong>Dual Morality System:</strong> Your choices shift your alignment between Humanity and Blood,
+            affecting the story and endings.</span>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">♦</span>
+          <span><strong>4 Romance Routes:</strong> Pursue romance with a Vampire Lord, Hunter, Scholar, or
+            Nightblade.</span>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">♦</span>
+          <span><strong>Immersive Story:</strong> 3-4 hours of gameplay with partial voice acting and stunning
+            artwork.</span>
+        </div>
+      </div>
     </section>
 
     <section class="panel">
-      <h2>Policies</h2>
+      <h2>Gallery</h2>
+      <div class="screenshot-grid">
+        <img src="assets/screen1.png" alt="Screenshot 1">
+        <img src="assets/screen2.png" alt="Screenshot 2">
+        <img src="assets/screen3.png" alt="Screenshot 3">
+        <img src="assets/screen4.png" alt="Screenshot 4">
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Resources</h2>
       <div class="pill-row">
         <a class="pill" href="/privacy/">Privacy Policy</a>
         <a class="pill" href="/terms/">Terms of Service</a>
@@ -121,11 +242,18 @@
     </section>
 
     <section class="panel">
-      <h2>Contact</h2>
-      <p>Email <a href="mailto:support@pixhigh.com">support@pixhigh.com</a> with your device model and a short description of the issue.</p>
+      <h2>Contact Support</h2>
+      <p style="color: var(--muted);">
+        Encountering issues with the game? We're here to help.<br>
+        Email us at <a href="mailto:support@pixhigh.com">support@pixhigh.com</a>. Please include your device model and a
+        brief description of the problem.
+      </p>
     </section>
 
-    <footer>© 2025 Pixhigh. All rights reserved.</footer>
+    <footer>
+      © 2025 Pixhigh. All rights reserved.
+    </footer>
   </div>
 </body>
+
 </html>
