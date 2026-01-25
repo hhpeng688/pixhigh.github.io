@@ -1,0 +1,498 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Play Dracula: Bloodlines of Desire</title>
+  <meta name="description"
+    content="Download Dracula: Bloodlines of Desire on iOS. A Gothic romance visual novel where every choice bites back.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Spline+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b090a;
+      --bg-deep: #140c0f;
+      --ink: #f3ede3;
+      --muted: #b8a89c;
+      --card: #1c1416;
+      --border: rgba(248, 214, 214, 0.15);
+      --accent: #dc2626;
+      --accent-strong: #991b1b;
+      --accent-soft: #f45d5d;
+      --glow: rgba(220, 38, 38, 0.35);
+      --shadow: 0 30px 50px rgba(0, 0, 0, 0.45);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Spline Sans", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 20% 10%, rgba(220, 38, 38, 0.26), transparent 55%),
+        radial-gradient(circle at 85% 0%, rgba(255, 185, 146, 0.18), transparent 45%),
+        linear-gradient(180deg, var(--bg), var(--bg-deep) 55%, var(--bg));
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(135deg,
+          rgba(255, 255, 255, 0.04) 0,
+          rgba(255, 255, 255, 0.04) 2px,
+          transparent 2px,
+          transparent 14px);
+      pointer-events: none;
+      opacity: 0.35;
+      mix-blend-mode: soft-light;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(220, 38, 38, 0.2), transparent 70%);
+      top: -120px;
+      right: -160px;
+      filter: blur(8px);
+      pointer-events: none;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 42px 22px 80px;
+      display: grid;
+      gap: 28px;
+    }
+
+    .back-link {
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .back-link:hover {
+      color: var(--accent-soft);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 24px;
+      align-items: center;
+    }
+
+    .title-row {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .app-icon {
+      width: 68px;
+      height: 68px;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .availability {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(244, 93, 93, 0.4);
+      color: var(--accent-soft);
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: "Cinzel", serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      letter-spacing: 0.02em;
+    }
+
+    .tagline {
+      margin: 14px 0 0;
+      font-size: 1.05rem;
+      color: var(--muted);
+      line-height: 1.5;
+      max-width: 520px;
+    }
+
+    .cta-stack {
+      margin-top: 22px;
+      display: grid;
+      gap: 12px;
+      width: min(320px, 100%);
+    }
+
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 18px;
+      border-radius: 14px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      border: 1px solid transparent;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .cta.primary {
+      background: linear-gradient(120deg, var(--accent-soft), var(--accent-strong));
+      color: #fff;
+      box-shadow: 0 18px 26px rgba(153, 27, 27, 0.4);
+    }
+
+    .cta.primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 22px 32px rgba(153, 27, 27, 0.5);
+    }
+
+    .cta.secondary {
+      border: 1px dashed rgba(248, 214, 214, 0.35);
+      color: var(--muted);
+      background: rgba(28, 20, 22, 0.6);
+      cursor: default;
+    }
+
+    .search-hint {
+      margin-top: 16px;
+      font-size: 0.9rem;
+      color: rgba(243, 237, 227, 0.7);
+    }
+
+    .search-hint strong {
+      color: var(--ink);
+    }
+
+    .hero-art {
+      position: relative;
+      padding: 12px;
+      border-radius: 20px;
+      background: linear-gradient(160deg, rgba(220, 38, 38, 0.25), rgba(20, 12, 15, 0.8));
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-art img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 14px;
+      display: block;
+      aspect-ratio: 4 / 3;
+    }
+
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 26px;
+      box-shadow: var(--shadow);
+      display: grid;
+      gap: 18px;
+    }
+
+    h2 {
+      margin: 0;
+      font-family: "Cinzel", serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.02em;
+    }
+
+    .media-row {
+      display: grid;
+      gap: 18px;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    }
+
+    .trailer-card {
+      position: relative;
+      border-radius: 16px;
+      background: linear-gradient(150deg, rgba(220, 38, 38, 0.18), rgba(12, 8, 9, 0.95));
+      border: 1px solid rgba(244, 93, 93, 0.3);
+      padding: 22px;
+      display: grid;
+      gap: 14px;
+      min-height: 200px;
+    }
+
+    .play-glyph {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: rgba(244, 93, 93, 0.2);
+      border: 1px solid rgba(244, 93, 93, 0.5);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 16px 24px rgba(0, 0, 0, 0.35);
+    }
+
+    .play-glyph::before {
+      content: "";
+      width: 0;
+      height: 0;
+      border-top: 8px solid transparent;
+      border-bottom: 8px solid transparent;
+      border-left: 14px solid var(--accent-soft);
+      margin-left: 3px;
+    }
+
+    .shot-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+    }
+
+    .shot-grid img {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: 0 14px 22px rgba(0, 0, 0, 0.35);
+    }
+
+    .story {
+      display: grid;
+      gap: 10px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .character-grid {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+
+    .character-card {
+      border-radius: 16px;
+      padding: 16px;
+      border: 1px solid rgba(248, 214, 214, 0.12);
+      background: linear-gradient(160deg, rgba(220, 38, 38, 0.12), rgba(18, 12, 14, 0.95));
+      display: grid;
+      gap: 8px;
+    }
+
+    .character-card span {
+      color: var(--accent-soft);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .link-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .pill-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(244, 93, 93, 0.35);
+      color: var(--accent-soft);
+      font-weight: 600;
+      background: rgba(28, 20, 22, 0.7);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .pill-link:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 18px rgba(0, 0, 0, 0.3);
+    }
+
+    .lore-box {
+      border-left: 3px solid var(--accent-soft);
+      padding-left: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      color: rgba(243, 237, 227, 0.6);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(12px);
+      animation: rise 0.8s ease forwards;
+    }
+
+    .delay-1 {
+      animation-delay: 0.1s;
+    }
+
+    .delay-2 {
+      animation-delay: 0.2s;
+    }
+
+    .delay-3 {
+      animation-delay: 0.3s;
+    }
+
+    .delay-4 {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes rise {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 860px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-art img {
+        aspect-ratio: 16 / 9;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .media-row {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-stack {
+        width: 100%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        opacity: 1;
+        transform: none;
+        animation: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <a class="back-link" href="/">Pixhigh</a>
+
+    <header class="hero reveal delay-1">
+      <div>
+        <div class="availability">Available now on iPhone &amp; iPad</div>
+        <div class="title-row">
+          <img src="/dracula/assets/icon.png" alt="Dracula app icon" class="app-icon">
+          <h1>Dracula: Bloodlines of Desire</h1>
+        </div>
+        <p class="tagline">A Gothic Romance Visual Novel Where Every Choice Bites Back.</p>
+        <div class="cta-stack">
+          <a class="cta primary" href="https://apps.apple.com/us/app/dracula-bloodlines-of-desire/id6757654933" target="_blank" rel="noreferrer">Download on the App Store</a>
+          <span class="cta secondary" aria-disabled="true">Google Play &mdash; Coming Soon</span>
+        </div>
+        <p class="search-hint">Search on the App Store: <strong>Dracula: Bloodlines of Desire</strong></p>
+      </div>
+      <div class="hero-art">
+        <img src="/dracula/assets/hero.png" alt="Lucien, the gothic hero of Dracula: Bloodlines of Desire">
+      </div>
+    </header>
+
+    <section class="panel reveal delay-2">
+      <h2>Screenshots &amp; Trailer</h2>
+      <div class="media-row">
+        <div class="trailer-card">
+          <div class="play-glyph" aria-hidden="true"></div>
+          <strong>Teaser trailer</strong>
+          <span style="color: var(--muted);">A short cinematic preview is landing soon. Until then, explore the moments
+            below.</span>
+        </div>
+        <div class="shot-grid">
+          <img src="/dracula/assets/screen1.png" alt="In-game dialogue scene">
+          <img src="/dracula/assets/screen2.png" alt="Character spotlight screen">
+          <img src="/dracula/assets/screen3.png" alt="Choice-driven scene">
+          <img src="/dracula/assets/screen4.png" alt="Gothic atmosphere snapshot">
+        </div>
+      </div>
+    </section>
+
+    <section class="panel reveal delay-3">
+      <h2>Story Premise</h2>
+      <div class="story">
+        <p>Neo-Victorian Europe, 2125. Your lineage awakens an ancient covenant, and every decision pulls you between
+          humanity and hunger.</p>
+        <p>Will you reclaim the truth of your bloodline, or surrender to the darkness that craves your devotion?</p>
+      </div>
+    </section>
+
+    <section class="panel reveal delay-3">
+      <h2>Characters</h2>
+      <div class="character-grid">
+        <div class="character-card">
+          <span>Vampire Lord</span>
+          <strong>Lucien</strong>
+          <div style="color: var(--muted);">Ancient power, brutal tenderness, and a throne carved in secrets.</div>
+        </div>
+        <div class="character-card">
+          <span>Hunter</span>
+          <strong>Seraphine</strong>
+          <div style="color: var(--muted);">A rival sworn to end you, yet drawn to the truth behind the curse.</div>
+        </div>
+        <div class="character-card">
+          <span>Scholar</span>
+          <strong>Alaric</strong>
+          <div style="color: var(--muted);">Forbidden knowledge and a pact that could rewrite your fate.</div>
+        </div>
+        <div class="character-card">
+          <span>Nightblade</span>
+          <strong>Nyx</strong>
+          <div style="color: var(--muted);">Silent, deadly, and loyal only to the shadows you share.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel reveal delay-4">
+      <h2>Join the Coven</h2>
+      <div class="link-row">
+        <a class="pill-link" href="https://discord.gg/NMUpJaT3B5" target="_blank" rel="noreferrer">Discord — Join the community</a>
+        <a class="pill-link" href="mailto:support@pixhigh.com?subject=Press%20Kit%20Request">Press Kit</a>
+        <a class="pill-link" href="/dracula/">Lore Archive</a>
+      </div>
+      <div style="color: var(--muted);">Meet other players, swap theories, and get early updates inside the coven.</div>
+      <div class="lore-box">Tonight's omen: trust the choices that sting. Every path is a confession.</div>
+    </section>
+
+    <footer>
+      Need help? Email <a href="mailto:support@pixhigh.com">support@pixhigh.com</a>
+    </footer>
+  </main>
+</body>
+
+</html>
